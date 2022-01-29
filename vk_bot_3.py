@@ -41,7 +41,7 @@ def yes_no(chat_id, text):
         session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Нет')
 
 
-
+#123
 
 for event in longpoll.listen():
     if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
@@ -58,6 +58,9 @@ for event in longpoll.listen():
             session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Илья')
         elif ('?' in event.text):
             yes_no(event.chat_id, event.text)
+        elif event.text == 'Боба' or event.text == 'боба':
+            session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Нет биба')
+
         else:
             solveMessage(event.chat_id, event.text)
        
