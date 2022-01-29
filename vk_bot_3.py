@@ -95,7 +95,7 @@ for event in longpoll.listen():
             for event in longpoll.listen():
                 if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
                     if event.text=='хватит' or event.text=='Хватит':
-                        session_api.messages.send(peer_id=event.peer_id, random_id=0, message='Ок,потом поиграем')
+                        session_api.messages.send(peer_id=event.peer_id, random_id=0, message='Ок, потом поиграем')
                         break
                     else:
                         num=random.randint(1,3)
