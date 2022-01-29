@@ -94,7 +94,7 @@ for event in longpoll.listen():
         if event.text == 'Покажи Илью' or event.text == 'покажи илью' or event.text == 'покажи илью.' or event.text == 'Покажи илью.' :
             photo('panda.png')
             session_api.messages.send(peer_id = event.peer_id, random_id = 0, attachment = attachment)
-        elif 'Что лучше'in event.text:
+        elif ('Что лучше' in event.text) or ('Кто лучше' in event.text) or ('что лучше' in event.text) or ('кто лучше' in event.text):
             sravni(event.text)
         elif event.text =='Давай играть' or event.text =='Давай сыграем':
             variant=[0,0]
