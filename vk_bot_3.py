@@ -79,6 +79,13 @@ def rock_scissors_paper(a):
         session_api.messages.send(peer_id=event.peer_id, random_id=0, message=('Ты проиграл'+str(variant)))
     else:
         session_api.messages.send(peer_id=event.peer_id, random_id=0, message='Ваш вариант не один из трёх')
+def sravni(a):
+    g=a.split()
+    num = random.randint(1, 2)
+    if num == 1:
+        session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = g[2])
+    else:
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message=g[4][:-1])
 #123
 #абобус
 
@@ -87,6 +94,8 @@ for event in longpoll.listen():
         if event.text == 'Покажи Илью' or event.text == 'покажи илью' or event.text == 'покажи илью.' or event.text == 'Покажи илью.' :
             photo('panda.png')
             session_api.messages.send(peer_id = event.peer_id, random_id = 0, attachment = attachment)
+        elif 'Что лучше'in event.text:
+            sravni(event.text)
         elif event.text =='Давай играть' or event.text =='Давай сыграем':
             variant=[0,0]
             chislo_bot=0
