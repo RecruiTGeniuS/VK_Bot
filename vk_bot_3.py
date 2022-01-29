@@ -42,6 +42,7 @@ def yes_no(chat_id, text):
 
 
 #123
+#абобус
 
 for event in longpoll.listen():
     if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
