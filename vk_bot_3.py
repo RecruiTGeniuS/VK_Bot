@@ -40,7 +40,45 @@ def yes_no(chat_id, text):
     else:
         session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Нет')
 
-
+def rock_csissors_paper(a):
+    global chislo_bot
+    global shiclo_player
+    global variant
+    if a == 1:
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message='Камень')
+    elif a == 2:
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message='Ножницы')
+    elif a == 3:
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message='Бумага')
+    session_api.messages.send(peer_id=event.peer_id, random_id=0, message='...')
+    if event.text=="Камень" and a == 1 or event.text=="Ножницы" and a == 2 or event.text=="Бумага" and a == 3 :
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message=('Ничья, а ты хорош'+str(variant)))
+    elif event.text=="Камень" and a == 2:
+        shiclo_player+=1
+        variant[0]=shiclo_player
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message=('твоя победа'+str(variant)))
+    elif event.text=="Ножницы" and a == 3:
+        shiclo_player+=1
+        variant[0] = shiclo_player
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message=('твоя победа'+str(variant)))
+    elif event.text=="Бумага" and a == 1:
+        shiclo_player+=1
+        variant[0] = shiclo_player
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message=('твоя победа'+str(variant)))
+    elif event.text=="Камень" and a == 3:
+        chislo_bot+=1
+        variant[1] = chislo_bot
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message=('Ты проиграл'+str(variant)))
+    elif event.text=="Ножницы" and a == 1:
+        chislo_bot+=1
+        variant[1] = chislo_bot
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message=('Ты проиграл'+str(variant)))
+    elif event.text=="Бумага" and a == 2:
+        chislo_bot+=1
+        variant[1] = chislo_bot
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message=('Ты проиграл'+str(variant)))
+    else:
+        session_api.messages.send(peer_id=event.peer_id, random_id=0, message='ваш вариант не один из трёх')
 #123
 #абобус
 
@@ -49,6 +87,19 @@ for event in longpoll.listen():
         if event.text == 'Покажи Илью' or event.text == 'покажи илью' or event.text == 'покажи илью.' or event.text == 'Покажи илью.' :
             photo('panda.png')
             session_api.messages.send(peer_id = event.peer_id, random_id = 0, attachment = attachment)
+        elif event.text =='Давай играть' or event.text =='Давай сыграем':
+            variant=[0,0]
+            chislo_bot=0
+            shiclo_player=0
+            session_api.messages.send(peer_id=event.peer_id, random_id=0, message='Давай')
+            for event in longpoll.listen():
+                if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
+                    if event.text=='хватит' or event.text=='Хватит':
+                        session_api.messages.send(peer_id=event.peer_id, random_id=0, message='Ок,потом поиграем')
+                        break
+                    else:
+                        num=random.randint(1,3)
+                        rock_csissors_paper(num)
         elif event.text == 'Биба' or event.text == 'биба':
             session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Да биба, и что?')
         elif event.text == 'Привет' or event.text == 'привет':
