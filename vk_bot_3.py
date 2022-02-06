@@ -33,6 +33,62 @@ def solveMessage(chat_id, text):
     except:
         session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Увы, но я пока что не знаю как на это ответить')
 
+def randomNum(text):
+    alph = '0123456789'
+    sp = text.split()
+    check = len(sp) - 1
+    if check != 5:
+        session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Увы, но я пока что не знаю как на это ответить')
+    else:
+        numSplit = list(sp[3])
+        numSplit2 = list(sp[5])
+        lengthNumSplit = len(numSplit) - 1
+        checkNum = 0
+        checkF = 0
+        if numSplit2[0] == '0':
+            session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Увы, но я пока что не знаю как на это ответить')
+        else:
+            while checkF != lengthNumSplit:
+                checkNum += 1
+                if (numSplit[checkNum] in alph) and (numSplit2[checkNum] in alph):
+                    checkF += 1
+                else:
+                    session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Увы, но я пока что не знаю как на это ответить')            
+            if checkF == lengthNumSplit:
+                num1 = int(sp[3])
+                num2 = int(sp[5])
+                session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = random.randint(num1, num2))
+            else:
+                session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Увы, но я пока что не знаю как на это ответить')
+
+def randomNum2(text):
+    alph = '0123456789'
+    sp = text.split()
+    check = len(sp) - 1
+    if check != 6:
+        session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Увы, но я пока что не знаю как на это ответить')
+    else:
+        numSplit = list(sp[4])
+        numSplit2 = list(sp[6])
+        lengthNumSplit = len(numSplit) - 1
+        checkNum = 0
+        checkF = 0
+        if numSplit2[0] == '0':
+            session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Увы, но я пока что не знаю как на это ответить')
+        else:
+            while checkF != lengthNumSplit:
+                checkNum += 1
+                if (numSplit[checkNum] in alph) and (numSplit2[checkNum] in alph):
+                    checkF += 1
+                else:
+                    session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Увы, но я пока что не знаю как на это ответить')            
+            if checkF == lengthNumSplit:
+                num1 = int(sp[4])
+                num2 = int(sp[6])
+                session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = random.randint(num1, num2))
+            else:
+                session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = 'Увы, но я пока что не знаю как на это ответить')
+
 def yes_no(chat_id, text):
     num = random.randint(1, 2)
     if num == 1:
@@ -79,13 +135,15 @@ def rock_scissors_paper(a):
         session_api.messages.send(peer_id=event.peer_id, random_id=0, message=('Ты проиграл'+str(variant)))
     else:
         session_api.messages.send(peer_id=event.peer_id, random_id=0, message='Ваш вариант не один из трёх')
+
 def sravni(a):
-    g=a.split()
+    g = a.split()
     num = random.randint(1, 2)
     if num == 1:
         session_api.messages.send(peer_id = event.peer_id, random_id = 0, message = g[2])
     else:
         session_api.messages.send(peer_id=event.peer_id, random_id=0, message=g[4][:-1])
+
 #123
 #абобус
 
@@ -96,6 +154,12 @@ for event in longpoll.listen():
             session_api.messages.send(peer_id = event.peer_id, random_id = 0, attachment = attachment)
         elif ('Что лучше' in event.text) or ('Кто лучше' in event.text) or ('что лучше' in event.text) or ('кто лучше' in event.text):
             sravni(event.text)
+        elif (('Назови число' in event.text) or ('назови число' in event.text)) and ('от' in event.text) and ('до' in event.text):
+            randomNum(event.text)
+        elif (('Назови любое число' in event.text) or ('назови любое число' in event.text)) and ('от' in event.text) and ('до' in event.text):
+            randomNum2(event.text)
+        elif (('Какая оценка' in event.text) or ('какая оценка' in event.text)) and ('?' in event.text):
+            session_api.messages.send(peer_id=event.peer_id, random_id=0, message = random.randint(2, 5))
         elif event.text =='Давай играть' or event.text =='Давай сыграем':
             variant=[0,0]
             chislo_bot=0
